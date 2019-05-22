@@ -13,29 +13,39 @@ class App extends Component {
     });
   }
 
-  getElements = () => {
-    axios.get('/api/element').then(response => {
-      this.props.dispatch({ type: 'SET_ELEMENTS', payload: response.data });
-  })
-  .catch(error => {
-      console.log('error with element get request', error);
-  });
-  }
+  // getElements = () => {
+  //   axios.get('/api/element').then(response => {
+  //     this.props.dispatch({
+  //       type: 'SET_ELEMENTS',
+  //       payload: response.data
+  //     });
+  // })
+  // .catch(error => {
+  //     console.log('error with element get request', error);
+  // });
+  // }
 
   componentDidMount() {
-    this.getElements();
+    // this.getElements();
+    this.props.dispatch({
+      type: 'FETCH_ELEMENTS'
+    })
   }
 
   handleClick = () => {
-    axios.post('/api/element', this.state).then(() => {
-        this.getElements();
-        this.setState({
-          newElement: '',
-      });
+    this.props.dispatch({
+      type: 'ADD_ELEMENT',
+      payload: this.state
     })
-    .catch(error => {
-        console.log('error with element get request', error);
-    });
+    // axios.post('/api/element', this.state).then(() => {
+    //     this.getElements();
+    //     this.setState({
+    //       newElement: '',
+    //   });
+    // })
+    // .catch(error => {
+    //     console.log('error with element get request', error);
+    // });
     
 }
 
